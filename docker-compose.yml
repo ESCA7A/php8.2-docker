@@ -1,0 +1,53 @@
+# docker compose version
+version: '3'
+
+# CONTAINERS & SERVICES LIST
+services:
+  # PHP-FPM CONTAINER             --------------------------------------------------------------------------------------
+  phpfpm:
+    # build self php image
+    build:
+      context: .
+      #php8.2-fpm dockerfile
+      dockerfile: ./.docker/infra/php/php8.2/Dockerfile
+    #set ports inside-outside
+    ports:
+      - "8000:80"
+    # sync volumes to container
+    volumes:
+      - ./src:/var/www/html:cached
+      - ./.docker/infra/php/php.ini:/usr/local/etc/php/php.ini
+      - ./.docker/infra/php/php-fpm.conf:/etc/php/8.2/fpm/pool.d/dockerfile-php-fpm.conf
+      - ./.docker/infra/php/xdebug.ini:/usr/local/etc/php/xdebug.ini
+      - ./.docker/logs/phpfpm.log/php8.2-fpm.log:/var/log/php8.2-fpm.log:cached
+    # get environment variables to container
+    env_file:
+      - ./.docker/env/phpfpm.env
+    tty: true
+    stdin_open: true
+
+  # NGINX REMOTE OFFICIAL IMAGE   --------------------------------------------------------------------------------------
+  # todo: do try traefik
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html:cached
+      - ./.docker/logs/nginx:/var/log/nginx:cached
+      - ./.docker/infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+    env_file:
+      - ./.docker/env/nginx.env
+    command: [ nginx-debug, '-g', 'daemon off;' ]
+
+  # MYSQL OFFICIAL IMAGE          --------------------------------------------------------------------------------------
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - ./.docker/infra/mysql/db:/var/lib/mysql
+      - ./.docker/infra/mysql/mysql.cnf:/etc/alternatives/my.cnf
+    env_file: .docker/env/mysql.env

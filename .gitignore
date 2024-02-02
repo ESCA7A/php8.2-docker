@@ -1,0 +1,8 @@
+# phpstorm
+.idea
+
+# db data
+.docker/infra/mysql/db
+
+# nginx logs
+.docker/logs

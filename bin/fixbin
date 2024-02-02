@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DEFAULT="Y"
+
+read -p "give a permissions to bin directory [Y/n]" ACCEPT
+
+# adopt the default, if 'enter' given
+ACCEPT="${ACCEPT:-${DEFAULT}}"
+
+if [ $ACCEPT != $DEFAULT ]; then
+    ABORT="abort"
+    echo "${ABORT}"
+    exit;
+fi
+
+chmod +x -R ./bin/*
+echo "scripts in bin directory has been accessable executable mode"

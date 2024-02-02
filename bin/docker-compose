@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# current version docker compose plugin
+IS_1_VERSION=false
+
+if [ ${IS_1_VERSION} = true ]; then
+    DOCKER_COMPOSE="docker-compose"
+else
+    DOCKER_COMPOSE="docker compose"
+fi
+
+${DOCKER_COMPOSE} -f docker-compose.yml "$@"
