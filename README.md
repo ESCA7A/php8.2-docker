@@ -1,0 +1,11 @@
+- Configuration files:
+- - .docker/infra/*
+- Build dokcerfile:
+- - bin/build
+- Run project:
+- - bin/start
+Open <a href="http://localhost">my localhost domain</a>
+- Show container logs:
+- - bin/logs `container name`
+- Tty terminal
+- - bin/bash `container name`
