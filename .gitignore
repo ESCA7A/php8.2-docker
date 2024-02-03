@@ -8,4 +8,4 @@
 .docker/logs/*
 
 # project
-src
+src/*
