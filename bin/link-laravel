@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cp -rf .docker/infra/nginx/laravel/laravel.conf .docker/infra/nginx/default.conf
+
+echo 'Web-server are restarting'
+echo ''
+bin/restart nginx

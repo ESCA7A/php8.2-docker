@@ -9,25 +9,28 @@ services:
     build:
       context: .
       #php8.2-fpm dockerfile
-      dockerfile: ./.docker/infra/php/php8.2/Dockerfile
+      dockerfile: .docker/infra/php/php8.2/Dockerfile
     #set ports inside-outside
     ports:
       - "8000:80"
     # sync volumes to container
     volumes:
       - ./src:/var/www/html:cached
+      # php configurations
       - ./.docker/infra/php/php.ini:/usr/local/etc/php/php.ini
       - ./.docker/infra/php/php-fpm.conf:/etc/php/8.2/fpm/pool.d/dockerfile-php-fpm.conf
       - ./.docker/infra/php/xdebug.ini:/usr/local/etc/php/xdebug.ini
+      # php container logs
       - ./.docker/logs/phpfpm.log/php8.2-fpm.log:/var/log/php8.2-fpm.log:cached
     # get environment variables to container
     env_file:
       - ./.docker/env/phpfpm.env
+      - ./.docker/env/mysql.env
+      - ./.docker/env/redis.env
     tty: true
     stdin_open: true
 
   # NGINX REMOTE OFFICIAL IMAGE   --------------------------------------------------------------------------------------
-  # todo: do try traefik
   nginx:
     image: nginx:latest
     ports:
@@ -50,4 +53,16 @@ services:
     volumes:
       - ./.docker/infra/mysql/db:/var/lib/mysql
       - ./.docker/infra/mysql/mysql.cnf:/etc/alternatives/my.cnf
-    env_file: .docker/env/mysql.env
+    env_file: ./.docker/env/mysql.env
+
+  # REDIS OFFICIAL IMAGE          --------------------------------------------------------------------------------------
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./.docker/infra/redis/db:/root/redis
+      - ./.docker/infra/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    env_file:
+      - ./.docker/env/redis.env

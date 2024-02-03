@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "1. add rights to [${USER}:docker] on: <.docker> directory"
+sudo chown ${USER}:docker -R .docker
+echo ''
+sleep 0.5
+
+echo "2. add group [WWW-DATA:WWW-DATA] on: <src> directory"
+sudo chown www-data:www-data -R src
+echo ''
+sleep 0.5
+
+echo "3. add rights [WRITE-READ-EXECUTABLE] to user, group, owner on: <src> directory"
+sudo chmod ugo+wrx -R src
+echo ''
+sleep 0.5
+
+echo '4. add rights [WRITE] to owner <src/storage>'
+sudo chmod o+w src/storage
+echo ''

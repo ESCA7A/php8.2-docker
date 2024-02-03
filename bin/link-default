@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cp -rf .docker/infra/nginx/default/default.conf .docker/infra/nginx/default.conf
+
+echo 'Web-server are restarting'
+echo ''
+bin/restart nginx

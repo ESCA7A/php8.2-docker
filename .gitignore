@@ -5,4 +5,7 @@
 .docker/infra/mysql/db
 
 # nginx logs
-.docker/logs
+.docker/logs/*
+
+# project
+src

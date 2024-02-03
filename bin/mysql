@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# add privileges to env file
+sudo chmod ugo+r .docker/env/mysql.env
+
+# get environment
+source .docker/env/mysql.env
+
+bin/ex -T mysql mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD}
