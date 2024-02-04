@@ -1,3 +1,10 @@
 #!/bin/bash
 
+#load nginx environment
+source .docker/env/nginx.env
+
+echo "Starting..."
 bin/docker-compose up -d --remove-orphans "$@"
+
+echo ""
+echo "${SERVER_NAME}"

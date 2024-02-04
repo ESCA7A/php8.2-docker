@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# remove autocomplete functions
+rm /etc/bash_completion.d/esca7a_*

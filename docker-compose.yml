@@ -35,6 +35,7 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
+      - "8080:80"
       - "443:443"
     volumes:
       - ./src:/var/www/html:cached
@@ -51,7 +52,7 @@ services:
       - "3306:3306"
     restart: unless-stopped
     volumes:
-      - ./.docker/infra/mysql/db:/var/lib/mysql
+      - db-data:/var/lib/mysql
       - ./.docker/infra/mysql/mysql.cnf:/etc/alternatives/my.cnf
     env_file: ./.docker/env/mysql.env
 
@@ -66,3 +67,6 @@ services:
       - ./.docker/infra/redis/redis.conf:/usr/local/etc/redis/redis.conf
     env_file:
       - ./.docker/env/redis.env
+
+volumes:
+  db-data:

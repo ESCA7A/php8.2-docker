@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# autocomplete for exec
+cp -rf bin/autocomplete/esca7a_bin_exec_autocomplete /etc/bash_completion.d/esca7a_bin_exec_autocomplete

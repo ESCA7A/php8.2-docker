@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function _bin_bash()
+{
+  latest="${COMP_WORDS[$COMP_CWORD]}"
+  prev="${COMP_WORDS[$COMP_CWORD - 1]}"
+  words=""
+  case "${prev}" in
+    bin/bash)
+      #words="phpfpm nginx mysql psql redis memcache"
+      words="phpfpm kek lol porohod jopa pizda"
+      ;;
+    *)
+      ;;
+  esac
+  COMPREPLY=($(compgen -W "$words" -- $latest))
+  return 0
+}
+
+complete -F _bin_bash bin/bash

@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+source bin/functions/zsh_agreement_function
+
+# add autocomplete to zsh
+ADD_AUTOCOMPLETE_TO_ZSH="are u use zsh now? [Y/n]"
+_agreement $ADD_AUTOCOMPLETE_TO_ZSH
+
+sudo cp -rf bin/autocomplete/* /etc/bash_completion.d/
+echo "autocomplete functions initialized"
+
+BASH_COMPLETE_INIT="autoload -U compinit promptinit"
+echo "${BASH_COMPLETE_INIT}" >> ~/.zshrc
+
+BASH_COMPLETE_INIT="promptinit"
+echo "${BASH_COMPLETE_INIT}" >> ~/.zshrc
+
+BASH_COMPLETE_INIT="prompt pure"
+echo "${BASH_COMPLETE_INIT}" >> ~/.zshrc
+
+BASH_COMPLETE_INIT="compinit"
+echo "${BASH_COMPLETE_INIT}" >> ~/.zshrc
+
+BASH_COMPLETE_INIT="source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+echo "${BASH_COMPLETE_INIT}" >> ~/.zshrc
+
+INIT_BASH_COMPLETION_FOLDER="source /etc/bash_completion.d/esca7a_*"
+echo "${INIT_BASH_COMPLETION_FOLDER}" >> ~/.zshrc
+
+echo "autocomplete successed for ${SHELL}"
+sleep 1
+
+echo "reload configuration. wait a little bit..."
+source /home/${USER}/.bashrc
+
+

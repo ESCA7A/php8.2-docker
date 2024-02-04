@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+function _agreement() # $1 is text with prompt
+{
+  DEFAULT="Y"
+  echo "$1"
+  read ACCEPT
+
+  # adopt the default, if 'enter' given
+  ACCEPT="${ACCEPT:-${DEFAULT}}"
+
+  if [ $ACCEPT != $DEFAULT ]; then
+      echo ""
+      echo "abort"
+      return 1;
+  fi
+
+  return 0
+}

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source bin/functions/agreement_function
+
+ADD_AUTOCOMPLETE_QUESTION="add $(ls bin/autocomplete) to /etc/bash_completion.d/* [Y/n]"
+
+# Add autocomplete to bash
+_agreement "$ADD_AUTOCOMPLETE_QUESTION";
+sudo cp -rf bin/autocomplete/* /etc/bash_completion.d/
+echo "autocomplete functions initialized"

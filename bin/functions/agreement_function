@@ -1,0 +1,20 @@
+#!/bin/bash
+
+## function is handle Y answer or die ##
+function _agreement() # $1 is text with prompt
+{
+  DEFAULT="Y"
+
+  read -p "$1" ACCEPT
+
+  # adopt the default, if 'enter' given
+  ACCEPT="${ACCEPT:-${DEFAULT}}"
+
+  if [ $ACCEPT != $DEFAULT ]; then
+      echo ""
+      echo "abort"
+      exit;
+  fi
+
+  return 0
+}
